@@ -15,16 +15,16 @@ const Home = () => {
   const [ConfirmModal, setConfirmModal] = useState(false);
 
   const {
-    data = { users: [] },
+    data = { ages: [] },
     isLoading,
     error,
   } = usequeryhook({
     queryKey: ["employeesList"],
-    url: "/users",
+    url: "/ages",
   });
  
-  const openModal = (user: IEmployee) => {
-    setSelectedUser(user);
+  const openModal = (age: IEmployee) => {
+    setSelectedUser(age);
     setIsModalOpen(true);
   };
 
@@ -35,9 +35,9 @@ const Home = () => {
     setName("");
   };
 
-  const openConfirmModel = (user: IEmployee) => {
+  const openConfirmModel = (age: IEmployee) => {
     setConfirmModal(true);
-    setSelectedUser(user);
+    setSelectedUser(age);
   };
 
   const closeModal = () => {
@@ -54,7 +54,7 @@ const Home = () => {
     
     try {
       const { status } = await axiosInstance.delete(
-        `/users/${selectedUser?.id}`
+        `/ages/${selectedUser?._id}`
       );
       if (status === 200) {
         closeModal();
@@ -69,11 +69,11 @@ const Home = () => {
 
     try {
       const { status } = await axiosInstance.patch(
-        `/users/${selectedUser.id}`,
+        `/ages/${selectedUser._id}`,
         {
-          name: selectedUser.firstName,
+          name: selectedUser.name,
           email: selectedUser.email,
-          Age: selectedUser.age,
+          Age: selectedUser.Age,
         }
       );
 
@@ -87,7 +87,7 @@ const Home = () => {
 
   const onCreate = async () => {
     try {
-      const { status } = await axiosInstance.post(`/users`, {
+      const { status } = await axiosInstance.post(`/ages`, {
         name: name,
         email: email,
         Age: age,
@@ -118,28 +118,28 @@ const Home = () => {
           </Button>
         </div>
 
-        {data?.users?.length > 0 ? (
+        {data?.data?.ages?.length > 0 ? (
           <div className="space-y-4">
-            {data.users.map((user: IEmployee) => (
+            {data.data.ages.map((age: IEmployee) => (
               <div
-                key={user.id}
+                key={age._id}
                 className="flex items-center justify-between hover:bg-gray-100 duration-300 p-3 rounded-md even:bg-gray-100 flex-wrap"
               >
                 <p className="w-full sm:w-auto font-semibold">
-                  {user.firstName}
+                  {age.name}
                 </p>
                 <div className="flex items-center justify-end w-full sm:w-auto space-x-3 mt-2 sm:mt-0">
                   <Button
                     variant={"default"}
                     size={"sm"}
-                    onClick={() => openModal(user)}
+                    onClick={() => openModal(age)}
                   >
                     View
                   </Button>
                   <Button
                     variant={"danger"}
                     size={"sm"}
-                    onClick={() => openConfirmModel(user)}
+                    onClick={() => openConfirmModel(age)}
                   >
                     Remove
                   </Button>
@@ -162,11 +162,11 @@ const Home = () => {
                   className="border-[1px] border-gray-300 shadow-md focus:border-[#149eca] focus:outline-none focus:ring-1 focus:ring-[#149eca] rounded-lg px-3 py-3 text-md w-full bg-transparent"
                   type="text"
                   placeholder="Name"
-                  value={selectedUser.firstName}
+                  value={selectedUser.name}
                   onChange={(e) =>
                     setSelectedUser({
                       ...selectedUser,
-                      firstName: e.target.value,
+                      name: e.target.value,
                     })
                   }
                 />
@@ -185,9 +185,9 @@ const Home = () => {
                   className="border-[1px] border-gray-300 shadow-md focus:border-[#149eca] focus:outline-none focus:ring-1 focus:ring-[#149eca] rounded-lg px-3 py-3 text-md w-full bg-transparent"
                   type="text"
                   placeholder="Birth Date"
-                  value={selectedUser.age}
+                  value={selectedUser.Age}
                   onChange={(e) =>
-                    setSelectedUser({ ...selectedUser, age: e.target.value })
+                    setSelectedUser({ ...selectedUser, Age: e.target.value })
                   }
                 />
                 <div className="flex flex-wrap space-x-3">
