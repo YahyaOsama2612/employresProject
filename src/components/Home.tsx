@@ -26,11 +26,15 @@ const Home = () => {
 
   return (
     <>
-      <div className="container mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
-        <Button onClick={handleLogout} className="-translate-x-40 mb-4 mt-4">
-          Logout
-        </Button>
-      </div>
+     <div className="container mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
+  <Button 
+    onClick={handleLogout} 
+    className="transform sm:translate-x-0 -translate-x-20 mb-4 mt-4 mx-auto"
+  >
+    Logout
+  </Button>
+</div>
+
 
       {data?.users?.length > 0 ? (
         <div className="space-y-4">
