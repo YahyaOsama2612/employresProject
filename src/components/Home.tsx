@@ -5,7 +5,7 @@ import { IEmployee } from "../interfaces";
 import Modal from "../components/Modal";
 import { handleLogout } from "../Pages/LoginPage";
 const Home = () => {
-  const [selectedUser, setSelectedUser] = useState<IEmployee | null>(null);
+  const [selectedUser, setSelectedUser] = useState<IEmployee>();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, error } = usequeryhook({
