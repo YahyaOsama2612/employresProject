@@ -2,6 +2,7 @@ import React, { useState, useEffect, FormEvent } from "react";
 import Input from "../components/ui/input";
 import Button from "../components/ui/Button";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const handleLogout = () => {
   localStorage.removeItem("isLoggedIn");
   window.location.href = "/login";
