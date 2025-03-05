@@ -19,7 +19,6 @@ const Home = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedUser(null);
   };
 
   if (isLoading) return <div>Loading...</div>;
